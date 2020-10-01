@@ -12,7 +12,7 @@ var getFeed = function() {
         }]
     };
 
-    // var ws = new WebSocket(url);
+    var ws = new WebSocket(url);
 
     WebSocket.onopen = () => {
         WebSocket.send(JSON.stringify(subscribe));
@@ -28,7 +28,7 @@ var getFeed = function() {
         if (value.type !== "ticker") {
             return;
         }
-        if (false) { /* for Test */
+        if (true) { /* for Test */
             // console.log("Update Price: " + value.price);
             var res = 0;
             let obj = {
