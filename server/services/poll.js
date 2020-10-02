@@ -12,23 +12,23 @@ var getFeed = function() {
         }]
     };
 
-    // var ws = new WebSocket(url);
+    var ws = new WebSocket(url);
 
-    WebSocket.onopen = () => {
-        WebSocket.send(JSON.stringify(subscribe));
+    ws.onopen = () => {
+        ws.send(JSON.stringify(subscribe));
     };
 
-    WebSocket.onerror = (error) => {
+    ws.onerror = (error) => {
         console.log(`WebSocket error: ${error}`)
     };
     var iter = 0;
 
-    WebSocket.onmessage = e => {
+    ws.onmessage = e => {
         const value = JSON.parse(e.data);
         if (value.type !== "ticker") {
             return;
         }
-        if (false) { /* for Test */
+        if (true) { /* for Test */
             // console.log("Update Price: " + value.price);
             var res = 0;
             let obj = {
@@ -42,7 +42,7 @@ var getFeed = function() {
 
             iter++;
         } else {
-            WebSocket.close();
+            ws.close();
             console.log(`Finish`);
         }
     };

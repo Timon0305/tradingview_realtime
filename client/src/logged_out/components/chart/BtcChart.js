@@ -8,8 +8,8 @@ const url = "ws://127.0.0.1:8080";
 const styles = (theme) => ({
   "chart-container": {
     margin: 100,
-    width: 960,
-    height: 400,
+    width: 1680,
+    height: 660,
   },
 });
 
@@ -24,10 +24,10 @@ class BtcChart extends React.Component {
           {
             type: "line",
             label: "BTC-USD",
-            backgroundColor: "rgba(0, 0, 0, 0)",
+            backgroundColor: "rgba(119, 136, 153, 0.15)",
             borderColor: this.props.theme.palette.primary.main,
-            pointBackgroundColor: this.props.theme.palette.secondary.main,
-            pointBorderColor: this.props.theme.palette.secondary.main,
+            pointBackgroundColor: this.props.theme.palette.success.main,
+            pointBorderColor: this.props.theme.palette.success.main,
             borderWidth: "2",
             lineTension: 0.45,
             data: [],
@@ -40,6 +40,11 @@ class BtcChart extends React.Component {
         tooltips: {
           enabled: true,
         },
+        title:{
+              display:true,
+              text:'BTC/USD',
+              fontSize:20
+            },
         scales: {
           xAxes: [
             {
@@ -77,7 +82,7 @@ class BtcChart extends React.Component {
           // Ignore errors.
           //
         });
-      }, 1000);
+      }, 1500);
     };
     this.ws.onerror = function (event) {
       console.log("Error: " + event.type);
