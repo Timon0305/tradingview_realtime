@@ -93,8 +93,8 @@ function ZoomImage(props) {
         src={src}
         onClick={zoomIn}
         className={classNames(className, classes.zoomedOutImage)}
-        {...rest}
-      ></img>
+            {...rest}
+        />
     </Fragment>
   );
 }

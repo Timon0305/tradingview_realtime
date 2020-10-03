@@ -11,8 +11,10 @@
     "@stripe/react-stripe-js": "^1.1.2",
     "@stripe/stripe-js": "^1.9.0",
     "aos": "^2.3.4",
+    "apisauce": "^1.1.2",
     "axios": "^0.18.0",
     "bootstrap": "^4.5.2",
+    "chart.js": "2.9.3",
     "ckeditor4-react": "^1.2.0",
     "classnames": "^2.2.6",
     "date-fns": "^2.0.0-beta.5",
@@ -22,15 +24,14 @@
     "js-cookie": "^2.2.0",
     "prop-types": "^15.7.2",
     "react": "^16.13.1",
+    "react-chartjs-2": "2.10.0",
     "react-cropper": "^2.1.4",
     "react-dom": "^16.13.1",
     "react-dropzone": "^11.2.0",
     "react-router": "^5.2.0",
     "react-router-dom": "^5.2.0",
     "react-scripts": "^3.4.3",
-    "recharts": "^1.8.5",
-    "chart.js": "2.9.3",
-    "react-chartjs-2": "2.10.0"
+    "recharts": "^1.8.5"
   },
   "devDependencies": {
     "@testing-library/jest-dom": "^5.11.4",

@@ -8,25 +8,25 @@ function VisibilityPasswordTextField(props) {
   return (
     <TextField
       {...rest}
-      type={isVisible ? "text" : "password"}
-      InputProps={{
+    type={isVisible ? "text" : "password"}
+    InputProps={{
         endAdornment: (
-          <InputAdornment position="end">
-            <IconButton
-              aria-label="Toggle password visibility"
-              onClick={() => {
-                onVisibilityChange(!isVisible);
-              }}
-              onMouseDown={(event) => {
-                event.preventDefault();
-              }}
-            >
-              {isVisible ? <VisibilityIcon /> : <VisibilityOffIcon />}
-            </IconButton>
-          </InputAdornment>
+            <InputAdornment position="end">
+                <IconButton
+                    aria-label="Toggle password visibility"
+                    onClick={() => {
+                        onVisibilityChange(!isVisible);
+                    }}
+                    onMouseDown={(event) => {
+                        event.preventDefault();
+                    }}
+                >
+                    {isVisible ? <VisibilityIcon/> : <VisibilityOffIcon/>}
+                </IconButton>
+            </InputAdornment>
         ),
-      }}
-    ></TextField>
+    }}
+    />
   );
 }
 

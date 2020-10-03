@@ -1,5 +1,6 @@
 import React, { useState, useCallback, useRef, Fragment } from "react";
 import PropTypes from "prop-types";
+import { create } from 'apisauce'
 import {
   FormHelperText,
   TextField,
@@ -13,6 +14,7 @@ import FormDialog from "../../../shared/components/FormDialog";
 import HighlightedInformation from "../../../shared/components/HighlightedInformation";
 import ButtonCircularProgress from "../../../shared/components/ButtonCircularProgress";
 import VisibilityPasswordTextField from "../../../shared/components/VisibilityPasswordTextField";
+import {webUrl} from "../../../config";
 
 const styles = (theme) => ({
   link: {
@@ -36,6 +38,7 @@ function RegisterDialog(props) {
   const [isLoading, setIsLoading] = useState(false);
   const [hasTermsOfServiceError, setHasTermsOfServiceError] = useState(false);
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
+  const registerEmail = useRef();
   const registerTermsCheckbox = useRef();
   const registerPassword = useRef();
   const registerPasswordRepeat = useRef();
@@ -53,12 +56,21 @@ function RegisterDialog(props) {
     }
     setStatus(null);
     setIsLoading(true);
-    setTimeout(() => {
-      setIsLoading(false);
-    }, 1500);
+
+    console.log('test_start', webUrl);
+    const api  = create({
+        baseURL: webUrl,
+        headers: { Accept: 'application/json' },
+    });
+    api.post('/register',
+        {email: registerEmail.current.value, password: registerPassword.current.value}, {})
+        .then(res => console.log(res))
+        .catch(e => console.log('Error', e.message));
+
   }, [
     setIsLoading,
     setStatus,
+    registerEmail,
     setHasTermsOfServiceError,
     registerPassword,
     registerPasswordRepeat,
@@ -86,6 +98,7 @@ function RegisterDialog(props) {
             fullWidth
             error={status === "invalidEmail"}
             label="Email Address"
+            inputRef={registerEmail}
             autoFocus
             autoComplete="off"
             type="email"

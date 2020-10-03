@@ -65,7 +65,7 @@ function Main(props) {
         number4: Math.floor(Math.random() * 251),
         name: randomPerson.name,
         profilePicUrl: randomPerson.src,
-        isActivated: Math.round(Math.random()) ? true : false,
+        isActivated: !!Math.round(Math.random()),
       };
       targets.push(target);
     }
