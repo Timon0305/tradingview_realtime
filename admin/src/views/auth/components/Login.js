@@ -17,14 +17,14 @@ export default class Login extends React.Component {
             </span>
           </div>
 
-          <span id="extr-page-header-space">
-            {" "}
-            <span className="hidden-mobile hiddex-xs">Need an account?</span>
-            &nbsp;
-            <a href="#/register" className="btn btn-danger">
-              Create account
-            </a>{" "}
-          </span>
+          {/*<span id="extr-page-header-space">*/}
+            {/*{" "}*/}
+            {/*<span className="hidden-mobile hiddex-xs">Need an account?</span>*/}
+            {/*&nbsp;*/}
+            {/*<a href="#/register" className="btn btn-danger">*/}
+              {/*Create account*/}
+            {/*</a>{" "}*/}
+          {/*</span>*/}
         </header>
         <div id="main" role="main" className="animated fadeInDown">
           <div id="content" className="container">

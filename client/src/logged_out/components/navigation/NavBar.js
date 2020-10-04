@@ -56,17 +56,12 @@ function NavBar(props) {
     {
       link: "/",
       name: "Home",
-      icon: <HomeIcon className="text-white" />,
+      icon: <HomeIcon className="text-white h1" style={{fontSize: '33px'}} />,
     },
     {
       link: "/blog",
       name: "Education",
-      icon: <BookIcon className="text-white" />,
-    },
-    {
-      link: "/btcChart",
-      name: "Trade",
-      icon: <BookIcon className="text-white" />,
+      icon: <BookIcon className="text-white"  />,
     },
     {
       name: "Register",
@@ -147,6 +142,9 @@ function NavBar(props) {
           </div>
         </Toolbar>
       </AppBar>
+      <div style={{paddingTop: '72px', paddingLeft: '20px'}}>
+
+      </div>
       <NavigationDrawer
         menuItems={menuItems}
         anchor="right"

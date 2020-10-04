@@ -7,7 +7,7 @@ import Chart from "./Chart";
 const url = "ws://127.0.0.1:8080";
 const styles = (theme) => ({
   "chart-container": {
-    margin: 100,
+    margin: 50,
     width: 1680,
     height: 660,
   },

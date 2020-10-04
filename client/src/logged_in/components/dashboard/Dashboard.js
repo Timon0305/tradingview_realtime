@@ -1,61 +1,146 @@
-import React, { Fragment, useEffect } from "react";
+import React from "react";
 import PropTypes from "prop-types";
-import { Typography, Box } from "@material-ui/core";
-import SettingsArea from "./SettingsArea";
-import UserDataArea from "./UserDataArea";
-import AccountInformationArea from "./AccountInformationArea";
-import StatisticsArea from "./StatisticsArea";
+import { withStyles } from "@material-ui/core/styles";
+import Chart from "./Chart";
 
-function Dashboard(props) {
-  const {
-    selectDashboard,
-    CardChart,
-    statistics,
-    toggleAccountActivation,
-    pushMessageToSnackbar,
-    targets,
-    setTargets,
-    isAccountActivated,
-  } = props;
+// const url = "wss://ws-feed.gdax.com";
+const url = "ws://127.0.0.1:8080";
+const styles = (theme) => ({
+    "chart-container": {
+        margin: 50,
+        width: 1280,
+        height: 660,
+    },
+});
 
-  useEffect(selectDashboard, [selectDashboard]);
+class Dashboard extends React.Component {
+    constructor(props) {
+        super(props);
 
-  return (
-    <Fragment>
-      <StatisticsArea CardChart={CardChart} data={statistics} />
-      <Box mt={4}>
-        <Typography variant="subtitle1" gutterBottom>
-          Your Account
-        </Typography>
-      </Box>
-      <AccountInformationArea
-        isAccountActivated={isAccountActivated}
-        toggleAccountActivation={toggleAccountActivation}
-      />
-      <Box mt={4}>
-        <Typography variant="subtitle1" gutterBottom>
-          Settings
-        </Typography>
-      </Box>
-      <SettingsArea pushMessageToSnackbar={pushMessageToSnackbar} />
-      <UserDataArea
-        pushMessageToSnackbar={pushMessageToSnackbar}
-        targets={targets}
-        setTargets={setTargets}
-      />
-    </Fragment>
-  );
+        this.state = {
+            lineChartData: {
+                labels: [],
+                datasets: [
+                    {
+                        type: "line",
+                        label: "BTC-USD",
+                        backgroundColor: "rgba(119, 136, 153, 0.15)",
+                        borderColor: this.props.theme.palette.primary.main,
+                        pointBackgroundColor: this.props.theme.palette.success.main,
+                        pointBorderColor: this.props.theme.palette.success.main,
+                        borderWidth: "2",
+                        lineTension: 0.45,
+                        data: [],
+                    },
+                ],
+            },
+            lineChartOptions: {
+                responsive: true,
+                maintainAspectRatio: false,
+                tooltips: {
+                    enabled: true,
+                },
+                title:{
+                    display:true,
+                    text:'BTC/USD',
+                    fontSize:20
+                },
+                scales: {
+                    xAxes: [
+                        {
+                            ticks: {
+                                autoSkip: true,
+                                maxTicksLimit: 10,
+                            },
+                        },
+                    ],
+                },
+            },
+        };
+    }
+
+    componentDidMount() {
+        const subscribe = {
+            type: "subscribe",
+            channels: [
+                {
+                    name: "ticker",
+                    product_ids: ["BTC-USD"],
+                },
+            ],
+        };
+
+        this.ws = new WebSocket(url);
+        var id = 0;
+        var sender = this.ws;
+
+        this.ws.onopen = () => {
+            // console.log('ws opened');
+            id = setInterval(function () {
+                sender.send(JSON.stringify(subscribe), function () {
+                    //
+                    // Ignore errors.
+                    //
+                });
+            }, 1500);
+        };
+        this.ws.onerror = function (event) {
+            console.log("Error: " + event.type);
+        };
+        // };
+        this.ws.onclose = function (evt) {
+            if (evt.code === 3001) {
+                console.log("ws closed");
+                this.ws = null;
+            } else {
+                this.ws = null;
+                console.log("ws connection error: " + evt.code);
+            }
+            if (id > 0) {
+                clearInterval(id);
+            }
+        };
+        var iter = 0;
+        this.ws.onmessage = (e) => {
+            if (iter > 3000) /* for Test */ return;
+            const value = JSON.parse(e.data);
+            console.log(value);
+            if (value.type !== "ticker") {
+                return;
+            }
+            iter++;
+
+            const oldBtcDataSet = this.state.lineChartData.datasets[0];
+            const newBtcDataSet = { ...oldBtcDataSet };
+            newBtcDataSet.data.push(value.price);
+
+            const newChartData = {
+                ...this.state.lineChartData,
+                datasets: [newBtcDataSet],
+                labels: this.state.lineChartData.labels.concat(
+                    new Date().toLocaleTimeString()
+                ),
+            };
+            this.setState({ lineChartData: newChartData });
+        };
+    }
+
+    componentWillUnmount() {
+        this.ws.close();
+    }
+
+    render() {
+        const { classes } = this.props;
+
+        return (
+            <div className={classes["chart-container"]}>
+                <Chart
+                    data={this.state.lineChartData}
+                    options={this.state.lineChartOptions}
+                />
+            </div>
+        );
+    }
 }
 
-Dashboard.propTypes = {
-  CardChart: PropTypes.elementType,
-  statistics: PropTypes.object.isRequired,
-  toggleAccountActivation: PropTypes.func,
-  pushMessageToSnackbar: PropTypes.func,
-  targets: PropTypes.arrayOf(PropTypes.object).isRequired,
-  setTargets: PropTypes.func.isRequired,
-  isAccountActivated: PropTypes.bool.isRequired,
-  selectDashboard: PropTypes.func.isRequired,
-};
-
-export default Dashboard;
+export default withStyles(styles, { withTheme: true })(Dashboard);

@@ -20,9 +20,10 @@ import {
   isWidthUp,
   withWidth,
 } from "@material-ui/core";
-import DashboardIcon from "@material-ui/icons/Dashboard";
-import ImageIcon from "@material-ui/icons/Image";
-import AccountBalanceIcon from "@material-ui/icons/AccountBalance";
+import DashboardIcon from "@material-ui/icons/TrendingUp";
+import ImageIcon from "@material-ui/icons/Person";
+import AccountBalanceIcon from "@material-ui/icons/Comment";
+import Info from '@material-ui/icons/Info';
 import PowerSettingsNewIcon from "@material-ui/icons/PowerSettingsNew";
 import MenuIcon from "@material-ui/icons/Menu";
 import SupervisorAccountIcon from "@material-ui/icons/SupervisorAccount";
@@ -201,6 +202,24 @@ function NavBar(props) {
       },
     },
     {
+        link: "/c/asdf",
+        name: "Help",
+        onClick: closeMobileDrawer,
+        icon: {
+            desktop: (
+                <Info
+                    className={
+                        selectedTab === "asd"
+                            ? classes.textPrimary
+                            : "text-white"
+                    }
+                    fontSize="small"
+                />
+            ),
+            mobile: <Info className="text-white" />,
+        },
+    },
+    {
       link: "/",
       name: "Logout",
       icon: {
@@ -213,7 +232,7 @@ function NavBar(props) {
   ];
   return (
     <Fragment>
-      <AppBar position="sticky" className={classes.appBar}>
+      <AppBar position="sticky" className={classes.appBar} style={{background: '#1b1414'}}>
         <Toolbar className={classes.appBarToolbar}>
           <Box display="flex" alignItems="center">
             <Hidden smUp>

@@ -40,15 +40,6 @@ class AsideChatWidget extends React.Component {
             open: this.state.open
           })}
         >
-          <a href="#/" onClick={this.openToggle}>
-            <i className="fa fa-lg fa-fw fa-comment-o">
-              <em className="bg-color-pink flash animated">!</em>
-            </i>
-            &nbsp;
-            <span className="menu-item-parent">
-              Smart Chat API <sup>beta</sup>
-            </span>
-          </a>
           <ul ref="chatUsersList">
             <li>
               <div className="display-users">

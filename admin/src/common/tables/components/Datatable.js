@@ -47,7 +47,7 @@ export default class Datatable extends React.Component {
           "<'dt-toolbar-footer'<'col-sm-6 col-xs-12 hidden-xs'i><'col-xs-12 col-sm-6'p>>",
         oLanguage: {
           sSearch:
-            "<span class='input-group-addon input-sm'><i class='glyphicon glyphicon-search'></i></span> ",
+            "<span class='input-group-addon input-sm'><i class='glyphicon glyphicon-search'/></span> ",
           sLengthMenu: "_MENU_"
         },
         autoWidth: false,

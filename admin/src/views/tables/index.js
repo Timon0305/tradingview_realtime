@@ -13,7 +13,7 @@ const NormalTables = Loadable({
 
 export const routes = [
   {
-    path: "/tables/datatables",
+    path: "/members/list_members",
     exact: true,
     component: Datatables,
     name: "Datatables"
